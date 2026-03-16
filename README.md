@@ -1,6 +1,6 @@
 # calculadora_imc
 
-A new Flutter project.
+meu primeiro projeto em flutter
 
 ## Getting Started
 
