@@ -81,52 +81,54 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Padding(
-        // Espaçamento geral da tela para não encostar nas bordas.
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          // Centraliza o conteúdo verticalmente.
-          mainAxisAlignment: MainAxisAlignment.center,
-          // Faz os filhos ocuparem toda a largura disponível.
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Campo para entrada do peso em quilogramas.
-            TextField(
-              controller: _pesoController,
-              // Abre teclado numérico com suporte a decimal.
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(
-                labelText: 'Peso (kg)',
-                border: OutlineInputBorder(),
-              ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _pesoController,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        decoration: const InputDecoration(
+                          labelText: 'Peso (kg)',
+                          border: UnderlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: TextField(
+                        controller: _alturaController,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        decoration: const InputDecoration(
+                          labelText: 'Altura (m)',
+                          border: UnderlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Center(
+                  child: SizedBox(
+                    width: 180,
+                    child: ElevatedButton(
+                      onPressed: _calcularImc,
+                      child: const Text('Calcular IMC')),
+                  )
+                )
+              ],
             ),
-            const SizedBox(height: 12),
-
-            // Campo para entrada da altura em metros.
-            TextField(
-              controller: _alturaController,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(
-                labelText: 'Altura (m)',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Botão que dispara o cálculo do IMC.
-            ElevatedButton(
-              onPressed: _calcularImc,
-              child: const Text('Calcular IMC'),
-            ),
-            const SizedBox(height: 20),
-
-            // Exibe o estado atual: mensagem inicial, erro de validação ou resultado final.
-            Text(
-              _resultado,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ],
+          ),
         ),
       ),
     );
